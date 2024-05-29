@@ -6,14 +6,14 @@ import { auth } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Post } from "./Post";
 
-interface postsType {
+export interface postType {
     id: string,
     title: string,
     description: string
 }
 
 export const Posts = () => {
-    const [posts, setPosts] = useState<any[]>();
+    const [posts, setPosts] = useState<postType[] | undefined>();
     const [user] = useAuthState(auth);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export const Posts = () => {
             try {
                 const postsData = await getDocs(postsRef);
                 if (postsData) {
-                    setPosts(postsData.docs as postsType|any);
+                    setPosts(postsData.docs as any);
                 }
             }
             catch (error) {

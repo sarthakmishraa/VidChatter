@@ -4,13 +4,24 @@ import { auth, db } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getDocs, deleteDoc, addDoc, doc, collection, query, where } from "firebase/firestore";
 
+interface likesType {
+    likeId: string,
+    userId: string
+}
+
+interface commentsType {
+    commentId: string,
+    userId: string | undefined,
+    comment: string
+}
+
 export const Post = (props: any) => {
     const { post } = props;
-    const [likes, setLikes] = useState<any[]>([]);
-    const [comments, setComments] = useState<any[]>([]);
+    const [likes, setLikes] = useState<likesType[]>([]);
+    const [comments, setComments] = useState<commentsType[]>([]);
     const [commentText, setCommentText] = useState<string>("");
     const [user] = useAuthState(auth);
-    const commentBoxRef = useRef<any>(null);
+    const commentBoxRef = useRef<HTMLInputElement | null>(null);
 
     const likesRef = collection(db, "likes");
     const likesDoc = query(likesRef, where("postId", "==", post.id));
@@ -38,7 +49,7 @@ export const Post = (props: any) => {
                 postId: post.id
             });
             if(user) {
-                setLikes((prev: any) => prev ? [...prev, { userId: user.uid, likeId: newDoc.id }] : [{ userId: user.displayName, likeId: newDoc.id }])
+                setLikes((prev: likesType[]) => prev ? [...prev, { userId: user.uid || "", likeId: newDoc.id }] : [{ userId: user.displayName || "", likeId: newDoc.id }])
             }
         }
         catch(error) {
@@ -63,7 +74,7 @@ export const Post = (props: any) => {
         }
     }
 
-    const isLiked = likes.some((like: any) => like.userId === user?.uid);
+    const isLiked = likes.some((like: likesType) => like.userId === user?.uid);
 
     // Comment feature
 
@@ -85,7 +96,9 @@ export const Post = (props: any) => {
             setComments((prev) => prev ?
                 [...prev, { userId: user?.uid, commentId: newCommentDoc.id, comment: commentText }] 
             : [{ userId: user?.uid, commentId: newCommentDoc.id, comment: commentText }]);
-            commentBoxRef.current.value = "";
+            if(commentBoxRef.current != null){
+                commentBoxRef.current.value = "";
+            }
         }
         catch(error) {
             console.log(error);

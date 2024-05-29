@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import { postType } from "./posts";
 
 export const EditPost = () => {
     const [newTitle, setNewTitle] = useState<string>("");
@@ -13,7 +14,7 @@ export const EditPost = () => {
     const handleChanges = async(newTitle: string, newDescription: string) => {
         const postsRef = collection(db, "posts");
         const posts:any = await getDocs(postsRef);
-        const post = posts.docs.find((post: any) => post.id === postId).data();
+        const post = posts.docs.find((post: postType) => post.id === postId).data();
         
         if(post) {
             const postRef = doc(db, "posts", postId);
@@ -26,15 +27,14 @@ export const EditPost = () => {
         else {
             console.log("Post not found");
         }
-        
     }
 
     useEffect(() => {
         const getPost = async() => {
             const postsRef = collection(db, "posts");
             const posts:any = await getDocs(postsRef);
-            setNewTitle(posts.docs.find((post: any) => post.id === postId).data().title);
-            setNewDescription(posts.docs.find((post: any) => post.id === postId).data().description);
+            setNewTitle(posts.docs.find((post: postType) => post.id === postId).data().title);
+            setNewDescription(posts.docs.find((post: postType) => post.id === postId).data().description);
         };
 
         getPost();

@@ -3,6 +3,7 @@ import { Home } from "./pages/home";
 import { Posts } from "./pages/posts/posts";
 import { CreatePost } from "./pages/posts/createPost";
 import { EditPost } from "./pages/posts/editPost";
+import { VidMeet } from "./pages/vidmeet/vidmeet";
 import { NotFound } from "./pages/notFound";
 import { Login } from "./pages/login";
 import { Navbar } from "./components/Navbar";
@@ -20,6 +21,7 @@ function App() {
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/createPost" element={<CreatePost />} />
           <Route path="/posts/editPost" element={<EditPost />} />
+          <Route path="/vidmeet" element={<VidMeet />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Provider>
