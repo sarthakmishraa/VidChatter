@@ -1,0 +1,40 @@
+.Navbar {
+    background-color: lightgrey;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 10px 10px;
+    font-size: large;
+    border-radius: 10px;
+}
+
+.NavbarCenter {
+    display: flex;
+    align-items: center;
+    font-weight: bolder;
+    font-size: xx-large;
+    margin-right: 100px;
+}
+
+.NavbarLeft {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.NavbarLeft span{
+    padding-left: 10px;
+}
+
+.NavbarLeft span:hover{
+    color: yellow;
+}
+
+.NavbarLeft span:active {
+    color: black;
+}
+
+@media screen and (max-width: 1080px) {
+    .NavbarCenter {
+        display: none;
+    }
+}

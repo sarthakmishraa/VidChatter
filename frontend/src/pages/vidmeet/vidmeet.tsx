@@ -80,7 +80,7 @@ export const VidMeet = () => {
         setCallEnded(true);
         // @ts-ignore
         connectionRef.current.destroy();
-    }
+    };
 
     useEffect(() => {
         const getMedia = async() => {
@@ -96,7 +96,6 @@ export const VidMeet = () => {
                 localUserRef.current.srcObject = stream;
 
                 socket.on("me", (id) => {
-                    console.log("Received 'me' event with ID:", id);
                     setMe(id);
                 });
 
@@ -113,6 +112,7 @@ export const VidMeet = () => {
         };
 
         getMedia();
+
     }, [mic]);
 
     return(

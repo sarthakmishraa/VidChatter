@@ -1,0 +1,70 @@
+.Posts {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.PostContainer {
+    background-color: lightgrey;
+    padding: 0 10px 0 10px;
+    box-shadow: 2px 2px 8px;
+}
+
+.CreatePostButton {
+    text-align: right;
+}
+
+.PostTitle {
+    padding-top: 10px;
+    text-decoration: underline;
+}
+
+.PostDescription {
+    text-align: justify;
+}
+
+.PostAuthor {
+    text-align: left;
+}
+
+.PostLikesAndComments {
+    text-align: left;
+}
+
+.PostComment {
+    font-weight: bold;
+}
+
+.PostWriteComment {
+    padding-bottom: 10px;
+}
+
+.PostWriteComment input {
+    height: 20px;
+    width: 500px;
+    font-size: medium;
+    border-radius: 10px;
+    padding: 6px;
+    margin-right: 10px;
+    background-color: aliceblue;
+}
+
+.PostWriteComment input:focus {
+    background-color: rgba(238, 241, 236, 0.651);
+}
+
+.PostEditAndDelete button{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+    .PostWriteComment input {
+        width: 250px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .PostWriteComment input {
+        width: 100px;
+    }
+}

@@ -1,0 +1,65 @@
+.CreatePostContainer {
+    text-align: center;
+    font-size: large;
+}
+
+.CreatePostContainer h2 {
+    font-size: xx-large;
+}
+
+.CreatePostTitle {
+    height: 20px;
+    width: 300px;
+}
+
+.CreatePostDescription {
+    width: 640px;
+    height: 480px;
+    font-family: "Inter";
+}
+
+.CreatePostTitle, .CreatePostDescription {
+    font-size: large;
+    border-radius: 10px;
+    padding: 6px;
+    margin-right: 10px;
+    background-color: aliceblue;
+}
+
+.CreatePostTitle:focus, .CreatePostDescription:focus {
+    background-color: rgba(238, 241, 236, 0.651);
+}
+
+.CreatePostSubmitButton {
+    font-size: medium;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 7px;
+    font-weight: 600;
+    background-color: lightcyan;
+    box-shadow: 2px 2px 2px gray;
+}
+
+.CreatePostSubmitButton:hover {
+    background-color: aqua;
+}
+
+.CreatePostSubmitButton:active{
+    background-color: aqua;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+    transform: scale(0.8);
+}
+
+@media screen and (max-width: 1200px) {
+    .CreatePostDescription {
+        width: 480px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .CreatePostDescription {
+        width: 360px;
+        height: 360px;
+    }
+}

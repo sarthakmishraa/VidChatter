@@ -111,53 +111,61 @@ export const Post = (props: any) => {
     }, []);
 
     return(
-        <div>
-            <h2>{ post.data().title }</h2>
-            <h3>{ post.data().description }</h3>
-            <h3>Author: { user?.displayName }</h3>
-            <h3>Likes: { likes.length }</h3>
-            <div>
-                <h3>Comments:</h3>
-                <input
-                    type='text'
-                    placeholder='Write comment here...'
-                    onChange={(event) => setCommentText(event.target.value)}
-                    ref={commentBoxRef}
-                />
-                <button
-                    onClick={addComment}
-                >
-                    Comment
-                </button>
-                {
-                    comments.map((comment) => comment.comment)
-                }
+        <div className='PostContainer'>
+            <h2 className='PostTitle'>{ post.data().title }</h2>
+            <h3 className='PostDescription'>{ post.data().description }</h3>
+            <h3 className='PostAuthor'>Author: { user?.displayName }</h3>
+            <div className='PostLikesAndComments'>
+                <div>
+                    <h3>Likes: { likes.length }</h3>
+                    {isLiked ? (
+                        <button
+                            onClick={removeLike}
+                        >
+                            Remove Like
+                        </button>
+                    ):(
+                        <button
+                            onClick={addLike}
+                        >
+                            Like
+                        </button>
+                    )}
+                </div>
+                <div className='PostComments'>
+                    <h3>Comments:</h3>
+                    <div className='PostWriteComment'>
+                        <input
+                            type='text'
+                            placeholder='Write comment here...'
+                            onChange={(event) => setCommentText(event.target.value)}
+                            ref={commentBoxRef}
+                        />
+                        <button
+                            onClick={addComment}
+                        >
+                            Comment
+                        </button>
+                    </div>
+                    {
+                        comments.map((comment) =>
+                            <li className='PostComment'>{ comment.comment }</li>
+                        )
+                    }
+                </div>
             </div>
-            {isLiked ? (
-                <button
-                    onClick={removeLike}
-                >
-                    Remove Like
-                </button>
-            ):(
-                <button
-                    onClick={addLike}
-                >
-                    Like
-                </button>
-            )}
             {
                 user?.uid === post.data().id &&
-                <div>
+                <div className='PostEditAndDelete'>
                     <Link
                         to="/posts/editPost"
                         state={post.id}
                     >
                         <button>
-                            Edit
+                            Edit Post
                         </button>
                     </Link>
-                    <button onClick={() => deletePost(post.id)}>Delete</button>
+                    <button onClick={() => deletePost(post.id)}>Delete Post</button>
                 </div>
             }
             <hr/>

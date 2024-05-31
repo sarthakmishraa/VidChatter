@@ -5,6 +5,7 @@ import { getDocs, collection } from "firebase/firestore";
 import { auth } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Post } from "./Post";
+import "./post.css";
 
 export interface postType {
     id: string,
@@ -34,21 +35,24 @@ export const Posts = () => {
     }, [])
 
     if(!posts) {
-        return(<h1>Loading...</h1>)
+        return(<h1 className="LoadingState">Loading...</h1>)
     }
 
     if(!user) {
-        return(<h1>Log In to create and view posts</h1>)
+        return(<h1 className="PostLogIn">Log In to create and view posts</h1>)
     }
 
     return(
-        <div>
-            <Link to="/posts/createPost">
+        <div className="Posts">
+            <div className="CreatePostButton">
+            <Link
+                to="/posts/createPost"
+            >
                 <button>
                     Create a new Post
                 </button>
             </Link>
-            <h1>Posts:</h1>
+            </div>
             {
                 posts?.map((post) => (
                     <div>
