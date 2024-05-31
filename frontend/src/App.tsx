@@ -3,6 +3,7 @@ import { CreatePost } from "./pages/posts/createPost";
 import { EditPost } from "./pages/posts/editPost";
 import { NotFound } from "./pages/notFound";
 import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 import React, { Suspense } from "react";
@@ -41,6 +42,7 @@ function App() {
           } />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Footer />
       </Provider>
     </Router>
   );

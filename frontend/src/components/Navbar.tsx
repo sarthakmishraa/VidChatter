@@ -20,6 +20,7 @@ export const Navbar = () => {
             </div>
             <div className="NavbarCenter">
                 <span>VidChatter</span>
+                <span>Share, chat, video - all in one.</span>
             </div>
             <div className="NavbarRight">
                 {
