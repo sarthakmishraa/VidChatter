@@ -12,7 +12,9 @@ interface likesType {
 interface commentsType {
     commentId: string,
     userId: string | undefined,
-    comment: string
+    comment: string,
+    name: string,
+    time: string
 }
 
 export const Post = (props: any) => {
@@ -76,12 +78,23 @@ export const Post = (props: any) => {
 
     const isLiked = likes.some((like: likesType) => like.userId === user?.uid);
 
+    const getCurrDateTime = () => {
+        var currentdate = new Date(); 
+        var datetime = currentdate.getDate() + "/"
+                        + (currentdate.getMonth()+1)  + "/" 
+                        + currentdate.getFullYear() + " at "  
+                        + currentdate.getHours() + ":"  
+                        + currentdate.getMinutes() + ":" 
+                        + currentdate.getSeconds();
+        return datetime;
+    }
+
     // Comment feature
 
     const getComments = async() => {
         const commentsQuery = query(commentRef, where("postId", "==", post.id));
         const commentsData = await getDocs(commentsQuery);
-        const commentsList = commentsData.docs.map((doc) => ({ userId: user?.uid, commentId: doc.id, comment: doc.data().comment }));
+        const commentsList = commentsData.docs.map((doc) => ({ userId: user?.uid, commentId: doc.id, comment: doc.data().comment, name: doc.data().name, time: doc.data().time }));
         setComments(commentsList);
     };
 
@@ -90,12 +103,33 @@ export const Post = (props: any) => {
             const newCommentDoc = await addDoc(commentRef, {
                 userId: user?.uid,
                 postId: post.id,
-                comment: commentText
+                comment: commentText,
+                name: user?.displayName,
+                time: getCurrDateTime()
             });
 
-            setComments((prev) => prev ?
-                [...prev, { userId: user?.uid, commentId: newCommentDoc.id, comment: commentText }] 
-            : [{ userId: user?.uid, commentId: newCommentDoc.id, comment: commentText }]);
+            setComments((prev) => 
+            prev
+                ?[
+                    ...prev,
+                    {
+                        userId: user?.uid,
+                        commentId: newCommentDoc.id,
+                        comment: commentText,
+                        name: user?.displayName || "",
+                        time: getCurrDateTime(),
+                    },
+                ]
+                :[
+                    {
+                        userId: user?.uid,
+                        commentId: newCommentDoc.id,
+                        comment: commentText,
+                        name: user?.displayName || "",
+                        time: getCurrDateTime(),
+                    },
+                ]
+            );
             if(commentBoxRef.current != null){
                 commentBoxRef.current.value = "";
             }
@@ -149,7 +183,10 @@ export const Post = (props: any) => {
                     </div>
                     {
                         comments.map((comment) =>
-                            <li className='PostComment'>{ comment.comment }</li>
+                            <div className='PostComment'>
+                                <span>{ comment.name }</span>
+                                <li>{ comment.comment }</li>
+                            </div>
                         )
                     }
                 </div>

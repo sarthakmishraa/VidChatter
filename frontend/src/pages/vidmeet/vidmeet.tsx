@@ -142,7 +142,11 @@ export const VidMeet = () => {
             <button
                 onClick={() => setMic(!mic)}
             >
-                {mic ? <h4>Turn Mic Off</h4>:<h4>Turn Mic On</h4>}
+                {mic ? <span>Turn Mic Off</span>:<span>Turn Mic On</span>}
+            </button>
+            <button
+            >
+                Share Screen
             </button>
 
             <input

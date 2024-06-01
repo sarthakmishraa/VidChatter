@@ -32,6 +32,17 @@
 }
 
 .PostComment {
+    padding: 10px 0 10px 0;
+}
+
+.PostComment span{
+    font-weight: bold;
+}
+
+.PostComment li{
+    margin-top: 5px;
+    list-style-type: none;
+    font-size: larger;
     font-weight: bold;
 }
 
