@@ -36,7 +36,10 @@ export const CreatePost = () => {
     return(
         <form
             className="CreatePostContainer"
-            onSubmit={createNewPost}
+            onSubmit={(event) => {
+                event.preventDefault();
+                createNewPost();
+            }}
         >
             <div>
                 <h2>Create a new post</h2>
