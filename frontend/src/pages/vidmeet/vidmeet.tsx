@@ -3,7 +3,8 @@ import * as io from "socket.io-client";
 import Peer from "simple-peer";
 import "./vidmeet.css"
 
-const URL = "http://localhost:3001";
+// const URL = "http://localhost:3001";
+const URL = "https://vidchatter.onrender.com/";
 const socket = io.connect(URL);
 
 export const VidMeet = () => {
