@@ -9,6 +9,7 @@ import "./post.css";
 
 export interface postType {
     id: string,
+    username: string,
     title: string,
     description: string
 }

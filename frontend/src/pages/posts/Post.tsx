@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { auth, db } from "../../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getDocs, deleteDoc, addDoc, doc, collection, query, where } from "firebase/firestore";
+import { getCurrDateTime, timeCommentedAgo } from "./post_utils";
 
 interface likesType {
     likeId: string,
@@ -78,17 +79,6 @@ export const Post = (props: any) => {
 
     const isLiked = likes.some((like: likesType) => like.userId === user?.uid);
 
-    const getCurrDateTime = () => {
-        var currentdate = new Date(); 
-        var datetime = currentdate.getDate() + "/"
-                        + (currentdate.getMonth()+1)  + "/" 
-                        + currentdate.getFullYear() + " at "  
-                        + currentdate.getHours() + ":"  
-                        + currentdate.getMinutes() + ":" 
-                        + currentdate.getSeconds();
-        return datetime;
-    }
-
     // Comment feature
 
     const getComments = async() => {
@@ -100,38 +90,41 @@ export const Post = (props: any) => {
 
     const addComment = async() => {
         try {
-            const newCommentDoc = await addDoc(commentRef, {
-                userId: user?.uid,
-                postId: post.id,
-                comment: commentText,
-                name: user?.displayName,
-                time: getCurrDateTime()
-            });
-
-            setComments((prev) => 
-            prev
-                ?[
-                    ...prev,
-                    {
-                        userId: user?.uid,
-                        commentId: newCommentDoc.id,
-                        comment: commentText,
-                        name: user?.displayName || "",
-                        time: getCurrDateTime(),
-                    },
-                ]
-                :[
-                    {
-                        userId: user?.uid,
-                        commentId: newCommentDoc.id,
-                        comment: commentText,
-                        name: user?.displayName || "",
-                        time: getCurrDateTime(),
-                    },
-                ]
-            );
-            if(commentBoxRef.current != null){
-                commentBoxRef.current.value = "";
+            if(commentText !== "") {
+                const newCommentDoc = await addDoc(commentRef, {
+                    userId: user?.uid,
+                    postId: post.id,
+                    comment: commentText,
+                    name: user?.displayName,
+                    time: getCurrDateTime()
+                });
+    
+                setComments((prev) => 
+                prev
+                    ?[
+                        ...prev,
+                        {
+                            userId: user?.uid,
+                            commentId: newCommentDoc.id,
+                            comment: commentText,
+                            name: user?.displayName || "",
+                            time: getCurrDateTime(),
+                        },
+                    ]
+                    :[
+                        {
+                            userId: user?.uid,
+                            commentId: newCommentDoc.id,
+                            comment: commentText,
+                            name: user?.displayName || "",
+                            time: getCurrDateTime(),
+                        },
+                    ]
+                );
+                if(commentBoxRef.current != null){
+                    commentBoxRef.current.value = "";
+                }
+                setCommentText("");
             }
         }
         catch(error) {
@@ -148,7 +141,7 @@ export const Post = (props: any) => {
         <div className='PostContainer'>
             <h2 className='PostTitle'>{ post.data().title }</h2>
             <h3 className='PostDescription'>{ post.data().description }</h3>
-            <h3 className='PostAuthor'>Author: { user?.displayName }</h3>
+            <h3 className='PostAuthor'>Author: { user?.uid === post.data().id ? "You" : post.data().username }</h3>
             <div className='PostLikesAndComments'>
                 <div>
                     <h3>Likes: { likes.length }</h3>
@@ -186,6 +179,7 @@ export const Post = (props: any) => {
                             <div className='PostComment'>
                                 <span>{ comment.name }</span>
                                 <li>{ comment.comment }</li>
+                                { timeCommentedAgo(comment.time) }
                             </div>
                         )
                     }

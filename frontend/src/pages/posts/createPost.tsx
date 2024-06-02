@@ -18,6 +18,7 @@ export const CreatePost = () => {
         try {
             await addDoc(postsRef, {
                 id: user?.uid,
+                username: user?.displayName,
                 title: newTitle,
                 description: newDescription
             });
@@ -33,7 +34,10 @@ export const CreatePost = () => {
     }
 
     return(
-        <div className="CreatePostContainer">
+        <form
+            className="CreatePostContainer"
+            onSubmit={createNewPost}
+        >
             <div>
                 <h2>Create a new post</h2>
                 <h3>Enter title for the post: </h3>
@@ -42,6 +46,7 @@ export const CreatePost = () => {
                     placeholder="Enter title"
                     onChange={(event) => setNewTitle(event.target.value)}
                     className="CreatePostTitle"
+                    required
                 />
             </div>
             <div>
@@ -50,13 +55,14 @@ export const CreatePost = () => {
                     placeholder="Write here..."
                     onChange={(event) => setNewDescription(event.target.value)}
                     className="CreatePostDescription"
+                    required
                 />
             </div>
             <input
                 type="submit"
-                onClick={() => createNewPost()}
+                // onClick={() => createNewPost()}
                 className="CreatePostSubmitButton"
             />
-        </div>
+        </form>
     )
 }
