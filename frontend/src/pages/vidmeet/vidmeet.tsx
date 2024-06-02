@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import * as io from "socket.io-client";
 import Peer from "simple-peer";
+import "./vidmeet.css"
 
 const URL = "http://localhost:3001";
 const socket = io.connect(URL);
@@ -12,75 +13,125 @@ export const VidMeet = () => {
     const [caller, setCaller] = useState("");
     const [callerSignal, setCallerSignal] = useState("");
     const [callAccepted, setCallAccepted] = useState<boolean>(false);
-    const [idToCall, setIdToCall] = useState("");
+    const [idToCall, setIdToCall] = useState<string>("");
     const [callEnded, setCallEnded] = useState<boolean>(false);
-    const [mic, setMic] = useState<boolean>(true);
+    const [mic, setMic] = useState<boolean>(false);
+    const [isScreenSharing, setIsScreenSharing] = useState<boolean>(false);
     const [mediaStream, setMediaStream] = useState<MediaStream | undefined>();
 
     const localUserRef = useRef<HTMLVideoElement>(null);
     const userVideo = useRef<HTMLVideoElement>(null)
     const connectionRef = useRef();
+    const screenShareRef = useRef<HTMLVideoElement>(null);
 
     const callUser = (id: string) => {
-        const peer = new Peer({
-            initiator: true,
-            trickle: false,
-            stream: mediaStream
-        });
-
-        peer.on("signal", (data) => {
-            socket.emit("callUser", {
-                userToCall: id,
-                signalData: data,
-                from: me,
-                name: name
-            })
-        });
-
-        peer.on("stream", (stream) => {
-            if(userVideo.current) {
-                // @ts-ignore
-                userVideo.current.srcObject = stream;
-            }
-        });
-
-        socket.on("callAccepted", (signal) => {
-            setCallAccepted(true);
-            peer.signal(signal);
-        });
-
-        // @ts-ignore
-        connectionRef.current = peer;
+        try {
+            const peer = new Peer({
+                initiator: true,
+                trickle: false,
+                stream: mediaStream
+            });
+    
+            peer.on("signal", (data) => {
+                socket.emit("callUser", {
+                    userToCall: id,
+                    signalData: data,
+                    from: me,
+                    name: name
+                })
+            });
+    
+            peer.on("stream", (stream) => {
+                if(userVideo.current) {
+                    // @ts-ignore
+                    userVideo.current.srcObject = stream;
+                }
+            });
+    
+            socket.on("callAccepted", (signal) => {
+                setCallAccepted(true);
+                peer.signal(signal);
+            });
+    
+            // @ts-ignore
+            connectionRef.current = peer;
+        }
+        catch(error) {
+            console.log(error);
+        }
     };
 
     const answerCall = () => {
-        setCallAccepted(true);
-        const peer = new Peer({
-            initiator: false,
-            trickle: false,
-            stream: mediaStream
-        });
+        try {
+            setCallAccepted(true);
+            const peer = new Peer({
+                initiator: false,
+                trickle: false,
+                stream: mediaStream
+            });
 
-        peer.on("signal", (data) => {
-            socket.emit("answerCall", {signal: data, to: caller})
-        })
+            peer.on("signal", (data) => {
+                socket.emit("answerCall", {signal: data, to: caller})
+            })
 
-        peer.on("stream", (stream) => {
+            peer.on("stream", (stream) => {
+                // @ts-ignore
+                userVideo.current.srcObject = stream;
+            });
+
+            peer.signal(callerSignal);
+
             // @ts-ignore
-            userVideo.current.srcObject = stream;
-        });
-
-        peer.signal(callerSignal);
-
-        // @ts-ignore
-        connectionRef.current = peer;
+            connectionRef.current = peer;
+        }
+        catch(error) {
+            console.log(error);
+        }
     };
 
     const leaveCall = () => {
-        setCallEnded(true);
-        // @ts-ignore
-        connectionRef.current.destroy();
+        try {
+            setCallEnded(true);
+            setIdToCall("");
+            // @ts-ignore
+            connectionRef.current.destroy();
+        }
+        catch(error) {
+            console.log(error);
+        }
     };
+
+    const shareScreen = async() => {
+        let screenStream = null;
+
+        try {
+            setIsScreenSharing(true);
+            screenStream = await navigator.mediaDevices.getDisplayMedia({
+                video: {
+                    // @ts-ignore
+                    cursor: "always"
+                },
+                audio: true
+            });
+
+            // @ts-ignore
+            screenShareRef.current.srcObject = screenStream;
+        }
+        catch(err) {
+            console.log(err);
+        }
+    };
+
+    const stopScreenShare = () => {
+        try {
+            // @ts-ignore
+            screenShareRef.current.srcObject = null;
+            setIsScreenSharing(false)
+        }
+        catch(error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
         const getMedia = async() => {
@@ -92,12 +143,11 @@ export const VidMeet = () => {
 
                 setMediaStream(stream);
 
-                // @ts-ignore
-                localUserRef.current.srcObject = stream;
-
                 socket.on("me", (id) => {
                     setMe(id);
                 });
+
+                setMe(socket.id as string);
 
                 socket.on("callUser", (data) => {
                     setRecievingCall(true);
@@ -105,6 +155,9 @@ export const VidMeet = () => {
                     setName(data.name);
                     setCallerSignal(data.signal);
                 });
+
+                // @ts-ignore
+                localUserRef.current.srcObject = stream;
             }
             catch(error) {
                 console.log(error);
@@ -116,39 +169,8 @@ export const VidMeet = () => {
     }, [mic]);
 
     return(
-        <div>
+        <div className="vidmeetContainer">
             <h1>VidMeet</h1>
-            {
-                mediaStream &&
-                <video
-                    ref={localUserRef}
-                    autoPlay
-                    width={300}
-                    height={250}
-                />
-            }
-            {
-                callAccepted && !callEnded ?
-                (
-                    <video
-                        playsInline
-                        ref={userVideo}
-                        autoPlay
-                        width={600}
-                        height={500}
-                    />
-                ):(null)
-            }
-            <button
-                onClick={() => setMic(!mic)}
-            >
-                {mic ? <span>Turn Mic Off</span>:<span>Turn Mic On</span>}
-            </button>
-            <button
-            >
-                Share Screen
-            </button>
-
             <input
                 type="text"
                 placeholder="Enter your name"
@@ -175,7 +197,53 @@ export const VidMeet = () => {
                     <button onClick={answerCall}>Answer CALL</button>
                 </div>
             ):(null)}
-            
+
+            {
+                mediaStream &&
+                <video
+                    ref={localUserRef}
+                    autoPlay
+                    width={720}
+                    height={640}
+                />
+            }
+            {
+                callAccepted && !callEnded ?
+                (
+                    <video
+                        playsInline
+                        ref={userVideo}
+                        autoPlay
+                        width={720}
+                        height={640}
+                    />
+                ):(null)
+            }
+            <button
+                onClick={() => setMic(!mic)}
+            >
+                {mic ? <span>Turn Mic Off</span>:<span>Turn Mic On</span>}
+            </button>
+            <button
+                onClick={shareScreen}
+            >
+                Share Screen
+            </button>
+            <button
+                onClick={stopScreenShare}
+            >
+                Stop sharing
+            </button>
+            {
+                isScreenSharing &&
+                <video
+                    ref={screenShareRef}
+                    autoPlay
+                    width={1400}
+                    height={1200}
+                />
+            }
+
         </div>
     )
 }
