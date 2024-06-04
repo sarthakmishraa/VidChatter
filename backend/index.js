@@ -8,8 +8,7 @@ const app = express();
 
 app.use(cors());
 
-// const url = "http://localhost:3000";
-const url = "https://vidchatter.netlify.app/";
+const frontend_url = process.env.FE_URL || "http://localhost:3000";
 
 const server = http.createServer(app);
 const io = new Server(server, {
