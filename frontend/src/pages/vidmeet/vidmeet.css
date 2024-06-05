@@ -2,3 +2,89 @@
     text-align: center;
     margin-bottom: 100px;
 }
+
+.vidmeetContainer input {
+    font-size: large;
+    border-radius: 10px;
+    padding: 6px;
+    margin-right: 10px;
+    background-color: aliceblue;
+    height: 20px;
+    width: 300px;
+}
+
+.vidmeetContainer input:focus {
+    background-color: rgba(238, 241, 236, 0.651);
+}
+
+.vidmeetVideoStream video {
+    width: 720px;
+    height: 640px;
+}
+
+.vidmeetScreenStream video {
+    width: 1400px;
+    height: 1200px;
+}
+
+.vidmeetVideoStream {
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (max-width: 1650px) {
+    .vidmeetScreenStream video {
+        width: 1200px;
+        height: 1000px;
+    }
+    .vidmeetVideoStream video {
+        width: 600px;
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 1475px) {
+    .vidmeetScreenStream video {
+        width: 1000px;
+        height: 800px;
+    }
+    .vidmeetVideoStream video {
+        width: 500px;
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 1275px) {
+    .vidmeetScreenStream video {
+        width: 800px;
+        height: 600px;
+    }
+    .vidmeetVideoStream {
+        flex-direction: column;
+    }
+    .vidmeetVideoStream video {
+        width: 600px;
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 975px) {
+    .vidmeetScreenStream video {
+        width: 640px;
+        height: 480px;
+    }
+    .vidmeetVideoStream {
+        flex-direction: column;
+    }
+    .vidmeetVideoStream video {
+        width: 500px;
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 825px) {
+    .vidmeetScreenStream video {
+        height: 500px;
+        width: 400px;
+    }
+}
