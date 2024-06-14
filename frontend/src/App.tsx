@@ -11,6 +11,7 @@ const Home = React.lazy(() => import("./pages/home").then(({ Home }) => ({ defau
 const Posts = React.lazy(() => import("./pages/posts/posts").then(({ Posts }) => ({ default: Posts })));
 const VidMeet = React.lazy(() => import("./pages/vidmeet/vidmeet").then(({ VidMeet }) => ({ default: VidMeet })));
 const Login = React.lazy(() => import("./pages/login").then(({ Login }) => ({ default: Login })));
+const Chat = React.lazy(() => import("./pages/vidmeet/chat").then(({ Chat }) => ({ default: Chat })));
 
 function App() {
   return (
@@ -38,6 +39,11 @@ function App() {
           <Route path="/vidmeet" element={
             <Suspense fallback={<h1 className="loadingState">Loading VidMeet...</h1>}>
               <VidMeet />
+            </Suspense>
+          } />
+          <Route path="/vidmeet/room/:id" element={
+            <Suspense fallback={<h1 className="loadingState">Loading VidMeet Chat...</h1>}>
+              <Chat />
             </Suspense>
           } />
           <Route path="*" element={<NotFound />} />

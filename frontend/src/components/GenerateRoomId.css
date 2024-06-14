@@ -1,0 +1,8 @@
+.generateRoomIdContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.generateRoomIdContainer div {
+    margin-left: 10px;
+}

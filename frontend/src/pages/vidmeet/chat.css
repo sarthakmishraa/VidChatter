@@ -1,35 +1,29 @@
-.container {
+.chatContainer {
     flex: 1;
     text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
-.container input {
+.chatContainer input {
     font-size: large;
     border-radius: 10px;
     padding: 6px;
     margin-right: 10px;
     background-color: aliceblue;
     height: 20px;
-    width: 300px;
+    width: 900px;
 }
 
-.container input:focus {
+.chatContainer input:focus {
     background-color: rgba(238, 241, 236, 0.651);
 }
 
-.vidmeetForm {
+.chatBox {
     display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.vidmeetForm input {
-    margin-bottom: 20px;
-}
-
-.vidmeetContainer {
-    display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: flex-end;
+    background-color: lightgray;
+    width: 1080px;
+    height: 640px;
 }
