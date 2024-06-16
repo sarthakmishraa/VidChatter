@@ -15,7 +15,7 @@ export const VidMeet = () => {
 
     const handleSubmit = () => {
         navigate("/vidmeet/room/" + roomId, { state: [name, socket.id] }); 
-    }
+    };
 
     return(
         <div className="container">
@@ -29,7 +29,7 @@ export const VidMeet = () => {
                         required
                     />
                     <input
-                        type="number"
+                        type="text"
                         onChange={(event) => setRoomId(event.target.value)}
                         placeholder="Enter room id"
                         required

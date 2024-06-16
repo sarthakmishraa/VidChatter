@@ -21,9 +21,34 @@
 
 .chatBox {
     display: flex;
+    flex-direction: column;
+    /* background-color: lightgray; */
+    width: 1080px;
+    height: 640px;
+    overflow-y: auto;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding-bottom: 10px;
+}
+
+.chatBoxMessages{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.chatBoxMessages p{
+    background-color: lightgray;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 5px 5px black;
+}
+
+.chatBoxInputBox {
+    display: flex;
     justify-content: center;
     align-items: flex-end;
-    background-color: lightgray;
-    width: 1080px;
     height: 640px;
 }
