@@ -26,6 +26,15 @@ io.on("connection", (socket) => {
         socket.broadcast.emit("callEnded");
         console.log(`User with id: ${socket.id} disconnected`);
     });
+
+    socket.on("joinRoom", (roomId) => {
+        socket.join(roomId);
+        console.log(`User with id: ${socket.id} joined room: ${roomId}`);
+    });
+
+    socket.on("sendMessage", (data) => {
+        socket.to(data.roomId).emit("receivedMessage", data);
+    });
 });
 
 app.get("/", (req, res) => {

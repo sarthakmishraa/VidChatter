@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as io from "socket.io-client";
 import { GenerateRoomId } from "../../components/GenerateRoomId";
 import "./vidmeet.css";
-
-const URL = process.env.REACT_APP_BE_URL || "http://localhost:3001";
-const socket = io.connect(URL);
 
 export const VidMeet = () => {
     const [name, setName] = useState<string>("");
@@ -13,13 +9,14 @@ export const VidMeet = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
-        navigate("/vidmeet/room/" + roomId, { state: [name, socket.id] }); 
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+        navigate(`/vidmeet/room/${roomId}`, { state: { name } });
     };
 
     return(
         <div className="container">
-            <h1>VidMeet</h1>
+            <h1>VidMeet & VidTalk</h1>
             <div className="vidmeetContainer">
                 <form onSubmit={handleSubmit} className="vidmeetForm">
                     <input

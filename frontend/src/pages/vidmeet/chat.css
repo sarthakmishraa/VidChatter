@@ -3,6 +3,7 @@
     text-align: center;
     display: flex;
     justify-content: center;
+    margin-bottom: 100px;
 }
 
 .chatContainer input {
@@ -19,36 +20,47 @@
     background-color: rgba(238, 241, 236, 0.651);
 }
 
+.chatBoxMessagesContainer {
+    overflow-y: auto;
+}
+
 .chatBox {
     display: flex;
-    flex-direction: column;
-    /* background-color: lightgray; */
+    flex-direction: column-reverse;
     width: 1080px;
     height: 640px;
-    overflow-y: auto;
     border: 1px solid lightgray;
     border-radius: 5px;
     padding-bottom: 10px;
+    position: relative;
+    padding-bottom: 40px;
 }
 
-.chatBoxMessages{
+.chatBoxMessages, .chatBoxMessagesReciever{
     display: flex;
     flex-direction: column;
-    align-items: end;
     margin-right: 40px;
     margin-left: 40px;
 }
 
-.chatBoxMessages p{
+.chatBoxMessages {
+    align-items: end;
+}
+
+.chatBoxMessagesReciever {
+    align-items: start;
+}
+
+.chatBoxMessages p, .chatBoxMessagesReciever p{
+    font-size: large;
     background-color: lightgray;
-    padding: 5px;
+    padding: 8px;
     border-radius: 10px;
     box-shadow: 5px 5px black;
 }
 
 .chatBoxInputBox {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 640px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

@@ -1,11 +1,30 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import * as io from "socket.io-client";
 import { useParams, useLocation } from "react-router-dom";
 import "./chat.css";
 
 interface chatMessagesType {
     message: string,
     roomId: string | undefined,
-    userId: string
+    userId: string | undefined,
+    time: string,
+}
+
+const URL = process.env.REACT_APP_BE_URL || "http://localhost:3001";
+const socket = io.connect(URL);
+
+const getCurrentTime = () => {
+    const currTime = new Date();
+    let hrs = currTime.getHours();
+    let mins = currTime.getMinutes();
+    let ampm = hrs >= 12 ? "PM" : "AM";
+
+    let formattedhrs = hrs % 12;
+    formattedhrs = formattedhrs ? formattedhrs : 12;
+    let formattedmins = mins < 10 ? "0" + mins : mins;
+    let currTimeString = `${formattedhrs}:${formattedmins} ${ampm}`;
+
+    return currTimeString;
 }
 
 export const Chat = () => {
@@ -16,35 +35,59 @@ export const Chat = () => {
 
     const location = useLocation();
     const data = location.state;
-    const name = data[0];
-    const socketId = data[1];
+    const name = data.name;
+    const socketId = socket.id;
+
+    const currTime = getCurrentTime();
 
     const { id } = useParams();
     const roomId = id?.toString()
 
-    let flag = false;
-
     const sendMessage = (event: any) => {
         event.preventDefault();
-        flag = true;
-        const newMessage: chatMessagesType = {message: messageSent, roomId: roomId, userId: socketId}
-        setChatMessages(chatMessages => [...chatMessages, newMessage]);
-        inputMessageRef.current.value = "";
-        setMessageSent("");
-    }
+        if(messageSent !== "") {
+            socket.emit("sendMessage", { message: messageSent, roomId: roomId, userId: socketId, time: currTime });
+            const newMessage: chatMessagesType = {message: messageSent, roomId: roomId, userId: socketId, time: currTime}
+            setChatMessages(chatMessages => [...chatMessages, newMessage]);
+            inputMessageRef.current.value = "";
+            setMessageSent("");
+        }
+    };
+
+    useEffect(() => {
+        if (roomId) {
+            socket.emit("joinRoom", roomId);
+        }
+    }, [roomId]);
+
+    useEffect(() => {
+        socket.on("receivedMessage", (data: chatMessagesType) => {
+            console.log(data.time);
+            setChatMessages(chatMessages => [...chatMessages, data]);
+        });
+    }, [socket]);
 
     return(
         <div className="chatContainer">
             <div>
-                <h1>VidTalk Chat</h1>
+                <h1>VidTalk</h1>
                 <h3>Room: { id }</h3>
-                <p>Hi {name}</p>
-                <p>{socketId}</p>
+                <h3>Hi {name}</h3>
                 <form className="chatBox" onSubmit={sendMessage}>
-                    <div className="chatBoxMessages">
+                    <div className="chatBoxMessagesContainer">
                         {
                             chatMessages.map((messageInfo) => (
-                                <p>{ messageInfo.message }</p>
+                                messageInfo.userId === socketId ? (
+                                    <div className="chatBoxMessages">
+                                        <p>{ messageInfo.message }</p>
+                                        <span>{ messageInfo.time }</span>
+                                    </div>
+                                ):(
+                                    <div className="chatBoxMessagesReciever">
+                                        <p>{ messageInfo.message }</p>
+                                        <span>{ messageInfo.time }</span>
+                                    </div>
+                                )
                             ))
                         }
                     </div>
