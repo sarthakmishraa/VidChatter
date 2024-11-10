@@ -33,3 +33,7 @@
     justify-content: center;
     align-items: flex-end;
 }
+
+.lineBreak {
+    border: 1px solid rgba(238, 241, 236, 0.651);
+}

@@ -19,17 +19,14 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-    console.log(`User with id: ${socket.id} connected`);
     socket.emit("me", socket.id);
     
     socket.on("disconnect", () => {
         socket.broadcast.emit("callEnded");
-        console.log(`User with id: ${socket.id} disconnected`);
     });
 
     socket.on("joinRoom", (roomId) => {
         socket.join(roomId);
-        console.log(`User with id: ${socket.id} joined room: ${roomId}`);
     });
 
     socket.on("sendMessage", (data) => {

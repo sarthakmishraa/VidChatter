@@ -1,6 +1,7 @@
 .Navbar {
     background-color: lightgrey;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: 10px 10px 10px 10px;
     font-size: large;
@@ -14,6 +15,7 @@
     font-size: xx-large;
     margin-right: 100px;
     text-decoration: underline;
+    letter-spacing: -2px;
 }
 
 .NavbarCenter :last-child {
