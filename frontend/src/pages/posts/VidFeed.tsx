@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { getDocs, collection } from "firebase/firestore";
 import { auth } from "../../config/firebase";
@@ -14,9 +14,11 @@ export interface postType {
     description: string
 }
 
-export const Posts = () => {
+export const VidFeed = () => {
     const [posts, setPosts] = useState<postType[] | undefined>();
     const [user] = useAuthState(auth);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const postsRef = collection(db, "posts");
@@ -40,7 +42,7 @@ export const Posts = () => {
     }
 
     if(!user) {
-        return(<h1 className="PostLogIn">Log In to create and view posts</h1>)
+        navigate("/login");
     }
 
     return(

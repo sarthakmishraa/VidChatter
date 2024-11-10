@@ -28,7 +28,7 @@ button:active{
     transform: scale(0.8);
 }
 
-.LoadingState, .PostLogIn {
+.LoadingState {
     text-align: center;
 }
 

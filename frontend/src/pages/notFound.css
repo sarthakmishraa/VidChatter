@@ -1,0 +1,9 @@
+.notFoundContainer {
+    padding: 100px 0px 100px 0px;
+    text-align: center;
+}
+
+.BodyText {
+    font-size: 64px;
+    font-weight: bold;
+}

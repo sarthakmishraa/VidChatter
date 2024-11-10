@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { FaLinkedin, FaGithubSquare } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
+
 import "./Footer.css"
 
 export const Footer = () => {
@@ -68,26 +71,34 @@ export const Footer = () => {
                     </span>
                 </div>
             </div>
-            <div>
-                <span className="FooterSubHeading">Contact</span>
-                <Link
-                    to="https://www.linkedin.com/in/sarthakmishraa/"
-                    target="_blank"
-                >
-                    <li>LinkedIn</li>
-                </Link>
-                <Link
-                    to="https://github.com/sarthakmishraa"
-                    target="_blank"
-                >
-                    <li>GitHub</li>
-                </Link>
-                <Link
-                    to="http://sarthakmishra.lovestoblog.com/?i=2"
-                    target="_blank"
-                >
-                    <li>Portfolio</li>
-                </Link>
+            <div className="FooterContact">
+                <p className="FooterSubHeading">Contact Us</p>
+                <div className="FooterContactIcons">
+                    <div className="FooterContactIcon">
+                        <Link
+                            to="https://www.linkedin.com/in/sarthakmishraa/"
+                            target="_blank"
+                        >
+                            <FaLinkedin size={ 34 } />
+                        </Link>
+                    </div>
+                    <div className="FooterContactIcon">
+                        <Link
+                            to="https://sarthakmishraa.github.io/portfolio/"
+                            target="_blank"
+                        >
+                            <ImProfile size={ 30 } />
+                        </Link>
+                    </div>
+                    <div className="FooterContactIcon">
+                        <Link
+                            to="https://github.com/sarthakmishraa"
+                            target="_blank"
+                        >
+                            <FaGithubSquare size={ 34 } />
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
     )

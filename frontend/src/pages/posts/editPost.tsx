@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { db } from "../../config/firebase";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
-import { postType } from "./posts";
+import { postType } from "./VidFeed";
 import "./editPost.css";
 
 export const EditPost = () => {

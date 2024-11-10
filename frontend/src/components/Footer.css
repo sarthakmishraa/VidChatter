@@ -2,17 +2,14 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 10px 10px 10px 10px;
+    padding: 72px 10px 72px 10px;
     font-size: large;
-    border-radius: 10px;
 }
 
 .FooterAppName :first-child {
     display: flex;
-    align-items: center;
     font-weight: bolder;
     font-size: xx-large;
-    margin-right: 100px;
     text-decoration: underline;
     letter-spacing: -2px;
 }
@@ -22,30 +19,36 @@
     font-size: large;
 }
 
-.FooterAppName:active {
-    color: black;
+.FooterSubHeading {
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.FooterSubHeading{
-    font-size: large;
-    font-weight: 600;
-}
-
-.FooterProjectInfo span{
+.FooterProjectInfo span {
     margin-right: 10px;
 }
 
-@media screen and (max-width: 1300px) {
-    .FooterAppName {
+.FooterContact {
+    display: flex;
+    flex-direction: column;
+}
+
+.FooterContactIcons {
+    display: flex;
+}
+
+.FooterContactIcon {
+    margin-right: 6px;
+}
+
+@media screen and (max-width: 1100px) {
+    .FooterProjectsInfo {
         display: none;
-    }
-    .Footer {
-        width: 45%;
     }
 }
 
-@media screen and (max-width: 640px) {
-    .FooterProjectsInfo {
+@media screen and (max-width: 800px) {
+    .FooterAppName {
         display: none;
     }
 }

@@ -13,7 +13,7 @@ export const Home = () => {
                     <p className="homeBodyText">VidChatter leverages modern web technologies to provide a smooth, efficient, and engaging user experience. Whether it's sharing posts, chatting in real-time, or connecting via video calls, VidChatter aims to be your go-to platform for social interaction.</p>
                 </div>
                 <div className="homeActions">
-                    <Link to="/posts"><button>Posts</button></Link>
+                    <Link to="/posts"><button>VidFeed</button></Link>
                     <Link to="/vidmeet"><button>VidMeet</button></Link>
                 </div>
             </div>

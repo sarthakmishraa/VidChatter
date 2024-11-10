@@ -15,7 +15,7 @@ export const Navbar = () => {
         <div className="Navbar">
             <div className="NavbarLeft">
                 <Link to="/"><button>Home</button></Link>
-                <Link to="/posts"><button>Posts</button></Link>
+                <Link to="/posts"><button>VidFeed</button></Link>
                 <Link to="/vidmeet"><button>VidMeet</button></Link>
             </div>
             <div className="NavbarCenter">
