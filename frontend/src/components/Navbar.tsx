@@ -14,9 +14,9 @@ export const Navbar = () => {
     return(
         <div className="Navbar">
             <div className="NavbarLeft">
-                <Link to="/"><span>Home</span></Link>
-                <Link to="/posts"><span>Posts</span></Link>
-                <Link to="/vidmeet"><span>VidMeet</span></Link>
+                <Link to="/"><button>Home</button></Link>
+                <Link to="/posts"><button>Posts</button></Link>
+                <Link to="/vidmeet"><button>VidMeet</button></Link>
             </div>
             <div className="NavbarCenter">
                 <span>VidChatter</span>

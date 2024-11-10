@@ -4,6 +4,10 @@
     margin-bottom: 100px;
 }
 
+.hero {
+    padding: 100px 100px 100px 100px;
+}
+
 .homeTitle {
     display: flex;
     flex-direction: column;
@@ -31,4 +35,41 @@
 .homeActions button{
     font-size: larger;
     margin-left: 20px;
+}
+
+.featuresContainer {
+    background-color: gainsboro;
+    padding-top: 96px;
+    padding-bottom: 96px;
+}
+
+.featuresHeading {
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+.features {
+    padding-top: 48px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.feature {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.featureIcon {
+    margin-bottom: 12px;
+}
+
+.featureTitle {
+    font-size: 36px;
+}
+
+.featureTagline {
+    font-size: 20px;
 }

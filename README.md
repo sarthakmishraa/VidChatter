@@ -5,7 +5,7 @@ VidChatter is a dynamic web application designed for seamless social interaction
 ## Key Features
 - **Posts**: Create, read, update, and delete posts. Users can share their thoughts and engage with the community.
 - **VidTalk**: Real-time chat functionality using Socket.io, enabling users to interact instantly with each other.
-- **VidMeet**: Upcoming feature for one-on-one video calling, facilitating face-to-face interactions.
+- **VidCall**: Upcoming feature for one-on-one video calling, facilitating face-to-face interactions.
 
 ## Short Description
 VidChatter is built to enhance online social interaction through a combination of various communication tools. The application supports user authentication via Firebase and uses Firebase's Firestore for storing posts. The real-time chat feature is powered by Socket.io, ensuring instant communication between users. VidChatter aims to expand its capabilities with an upcoming one-on-one video calling feature, making it a versatile platform for social engagement.
@@ -16,7 +16,7 @@ VidChatter is built to enhance online social interaction through a combination o
 <img src="./media/vidchatter_1.png" alt="VidChatter Posts" width="600" />
 <img src="./media/vidchatter_3.png" alt="VidChatter Posts" width="600" />
 
-<h3>VidTalk & VidMeet Landing Page</h3>
+<h3>VidTalk & VidCall Landing Page</h3>
 <img src="./media/vidchatter_2.png" alt="VidChatter Posts" width="600" />
 <div>
     <h3>VidTalk Snips</h3>

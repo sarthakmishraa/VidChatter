@@ -1,5 +1,4 @@
 .Footer {
-    background-color: lightgrey;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -21,10 +20,6 @@
 .FooterAppName :last-child {
     font-weight: bold;
     font-size: large;
-}
-
-.FooterAppName:hover{
-    color: yellow;
 }
 
 .FooterAppName:active {
