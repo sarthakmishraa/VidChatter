@@ -1,0 +1,47 @@
+.featuresContainer {
+    background-color: gainsboro;
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+.featuresHeading {
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.features {
+    padding-top: 48px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.feature {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.featureIcon {
+    margin-bottom: 12px;
+}
+
+.featureTitle {
+    font-size: 36px;
+}
+
+.featureTagline {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 1100px) {
+    .features {
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .feature {
+        margin-bottom: 72px;
+    }
+}

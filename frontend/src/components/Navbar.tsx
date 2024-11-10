@@ -34,6 +34,7 @@ export const Navbar = () => {
                         <Link to="/login"><button>Log In</button></Link>
                     )
                 }
+                <a href="https://sarthakmishraa.github.io/portfolio/" target="_blank" rel="noreferrer"><button>Contact</button></a>
             </div>
         </div>
     )

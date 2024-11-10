@@ -4,7 +4,7 @@ VidChatter is a dynamic web application designed for seamless social interaction
 
 ## Key Features
 - **Posts**: Create, read, update, and delete posts. Users can share their thoughts and engage with the community.
-- **VidTalk**: Real-time chat functionality using Socket.io, enabling users to interact instantly with each other.
+- **VidTalk**: Real-time chat functionality using web sockets, enabling users to interact instantly with each other.
 - **VidCall**: Upcoming feature for one-on-one video calling, facilitating face-to-face interactions.
 
 ## Short Description

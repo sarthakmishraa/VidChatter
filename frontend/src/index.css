@@ -9,20 +9,21 @@ body {
 button {
     font-size: medium;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 4px;
     padding: 7px;
     font-weight: 600;
-    background-color: lightcyan;
+    background-color: black;
+    color: gainsboro;
     box-shadow: 2px 2px 2px gray;
 }
 
 button:hover {
-    background-color: aqua;
+    color: black;
+    background-color: lightgray;
 }
 
 button:active{
-    background-color: aqua;
-    transition-duration: 200ms;
+    transition-duration: 50ms;
     transition-timing-function: ease-in-out;
     transform: scale(0.8);
 }

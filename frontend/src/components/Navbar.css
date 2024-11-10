@@ -1,7 +1,7 @@
 .Navbar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 10px 100px 10px 100px;
     font-size: large;
     border-radius: 10px;
@@ -30,6 +30,10 @@
 }
 
 .NavbarLeft button {
+    margin-left: 12px;
+}
+
+.NavbarRight button {
     margin-left: 12px;
 }
 
